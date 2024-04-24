@@ -38,7 +38,7 @@ setInterval(() => {
 
 onMounted(() => {
 	const data = useUserInfo().userInfos;
-	initUserInfo(data.user.userId);
+	initUserInfo(data?.user?.userId || 'admin');
 });
 
 /**
@@ -54,7 +54,7 @@ const initUserInfo = async (userId: any): Promise<void> => {
 		userData.value = res.data; // 将查询到的数据保存到 userData 变量中
 		userData.value.postName = res.data?.postList?.map((item: any) => item.postName).join(',') || ''; // 将 postList 中的 postName 合并成字符串并保存到 userData 变量中
 		// 文件上传增加后端前缀
-		userData.value.avatar = proxy.baseURL + res.data.avatar;
+		userData.value.avatar = proxy.baseURL + res.data?.avatar;
 	} finally {
 		loading.value = false; // 结束加载状态
 	}

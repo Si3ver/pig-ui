@@ -10,11 +10,11 @@ import other from './other';
 const service: AxiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_API_URL,
 	timeout: 50000, // 全局超时时间
-    paramsSerializer: {
-        serialize: (params: any) => {
-            return qs.stringify(params, {arrayFormat: 'repeat'});
-        }
-    }
+	paramsSerializer: {
+		serialize: (params: any) => {
+			return qs.stringify(params, { arrayFormat: 'repeat' });
+		},
+	},
 });
 
 /**
@@ -97,4 +97,8 @@ export enum CommonHeaderEnum {
 }
 
 // 导出 axios 实例
-export default service;
+// export default service;
+export default () =>
+	Promise.resolve({
+		data: {},
+	});
