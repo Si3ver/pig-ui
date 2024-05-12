@@ -8,6 +8,7 @@ import { createStyleImportPlugin, VxeTableResolve } from 'vite-plugin-style-impo
 import viteCompression from 'vite-plugin-compression';
 // @ts-ignore
 import { svgBuilder } from '/@/components/IconSelector/index';
+import mockDevServerPlugin from 'vite-plugin-mock-dev-server';
 
 const pathResolve = (dir: string) => {
 	return resolve(__dirname, '.', dir);
@@ -23,6 +24,11 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 	return {
 		plugins: [
 			vue(), // Vue 插件
+			mockDevServerPlugin({
+				include: 'mock/**/*.mock.{ts,js,cjs,mjs,json,json5}',
+				log: 'info',
+				build: true,
+			}),
 			svgBuilder('./src/assets/icons/'), // 将 SVG 文件转换成 Vue 组件
 			vueSetupExtend(), // setup语法糖增强插件
 			AutoImport({
@@ -52,6 +58,10 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			open: env.VITE_OPEN === 'true', // 是否自动打开浏览器
 			hmr: true, // 启用热更新
 			proxy: {
+				// mock
+				'/api/admin/menu': {
+					target: '',
+				},
 				'/api/gen': {
 					//单体架构下特殊处理代码生成模块代理
 					target: env.VITE_IS_MICRO === 'true' ? env.VITE_ADMIN_PROXY_PATH : env.VITE_GEN_PROXY_PATH,

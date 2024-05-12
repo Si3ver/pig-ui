@@ -8,6 +8,7 @@
 		"dev": "vite --force",
 		"build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 vite build",
 		"build:docker": "cross-env NODE_OPTIONS=--max-old-space-size=4096 vite build --outDir ./docker/dist/",
+		"build:prod": "cross-env NODE_OPTIONS=--max-old-space-size=4096 vite build --outDir ./docker/dist/ --mode production",
 		"lint:eslint": "eslint --fix --ext .js,.ts,.vue ./src",
 		"prettier": "prettier --write ."
 	},
