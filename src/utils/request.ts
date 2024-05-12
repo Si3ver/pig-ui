@@ -4,17 +4,18 @@ import { useMessageBox } from '/@/hooks/message';
 import qs from 'qs';
 import other from './other';
 
+let count = 0;
 /**
  * 创建并配置一个 Axios 实例对象
  */
 const service: AxiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_API_URL,
 	timeout: 50000, // 全局超时时间
-    paramsSerializer: {
-        serialize: (params: any) => {
-            return qs.stringify(params, {arrayFormat: 'repeat'});
-        }
-    }
+	paramsSerializer: {
+		serialize: (params: any) => {
+			return qs.stringify(params, { arrayFormat: 'repeat' });
+		},
+	},
 });
 
 /**
@@ -43,6 +44,10 @@ service.interceptors.request.use(
 		// 自动适配单体和微服务架构不同的URL
 		config.url = other.adaptationUrl(config.url);
 
+		config._rid = ++count;
+		// eslint-disable-next-line no-console
+		console.log(`\x1b[43m${config._rid} ${config.url}`, config.data);
+
 		// 处理完毕，返回config对象
 		return config;
 	},
@@ -68,6 +73,9 @@ const handleResponse = (response: AxiosResponse<any>) => {
 		response.data = originData;
 		return response.data;
 	}
+
+	// eslint-disable-next-line no-console
+	console.log(`\x1b[42m${response.config._rid} ${response.config.url} ${response.status}`, response.data);
 
 	return response.data;
 };
