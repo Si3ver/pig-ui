@@ -59,9 +59,9 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			hmr: true, // 启用热更新
 			proxy: {
 				// mock
-				'/api/admin/menu': {
-					target: '',
-				},
+				// '/api/admin/menu': {
+				// 	target: '',
+				// },
 				'/api/gen': {
 					//单体架构下特殊处理代码生成模块代理
 					target: env.VITE_IS_MICRO === 'true' ? env.VITE_ADMIN_PROXY_PATH : env.VITE_GEN_PROXY_PATH,

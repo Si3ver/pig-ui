@@ -3,23 +3,28 @@
 		<div class="layout-padding-auto layout-padding-view">
 			<el-row shadow="hover" v-show="showSearch" class="ml10">
 				<el-form :inline="true" :model="state.queryForm" @keyup.enter="getDataList" ref="queryRef">
+					<!-- 搜索：菜单名称 -->
 					<el-form-item :label="$t('sysmenu.name')" prop="menuName">
 						<el-input :placeholder="$t('sysmenu.inputNameTip')" clearable style="max-width: 180px" v-model="state.queryForm.menuName" />
 					</el-form-item>
-          <el-form-item>
-            <el-button @click="query" class="ml10" icon="search" type="primary">
-              {{ $t('common.queryBtn') }}
-            </el-button>
-            <el-button @click="resetQuery" icon="Refresh">{{ $t('common.resetBtn') }}</el-button>
-          </el-form-item>
+					<!-- 按钮：查询 & 重置 -->
+					<el-form-item>
+						<el-button @click="query" class="ml10" icon="search" type="primary">
+							{{ $t('common.queryBtn') }}
+						</el-button>
+						<el-button @click="resetQuery" icon="Refresh">{{ $t('common.resetBtn') }}</el-button>
+					</el-form-item>
 				</el-form>
 			</el-row>
 			<el-row>
 				<div class="mb8" style="width: 100%">
+					<!-- 按钮：新增菜单 -->
 					<el-button @click="onOpenAddMenu" class="ml10" icon="folder-add" type="primary" v-auth="'sys_menu_add'">
 						{{ $t('common.addBtn') }}
 					</el-button>
+					<!-- 按钮：展开 / 折叠 -->
 					<el-button @click="handleExpand"> {{ $t('common.expandBtn') }} </el-button>
+					<!-- 功能条：是否隐藏搜索 & 刷新 -->
 					<right-toolbar
 						v-model:showSearch="showSearch"
 						class="ml10"
@@ -148,15 +153,15 @@ const toggleExpand = (children: any[], unfold = true) => {
 
 // 搜索事件
 const query = () => {
-  state.dataList = [];
-  getDataList();
+	state.dataList = [];
+	getDataList();
 };
 
 // 清空搜索条件
 const resetQuery = () => {
-  queryRef.value.resetFields();
-  state.dataList = [];
-  getDataList();
+	queryRef.value.resetFields();
+	state.dataList = [];
+	getDataList();
 };
 
 // 删除操作
