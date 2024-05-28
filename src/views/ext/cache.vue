@@ -117,11 +117,15 @@
 			</el-card>
 
 			<!-- 内存信息 -->
-			<el-card class="flex-1 !border-none mt-4" shadow="never">
+			<!-- <el-card class="flex-1 !border-none mt-4" shadow="never">
 				<div>
 					<div class="mb-10">内存信息</div>
 					<div class="flex h-[300px] items-center" ref="memoryChartRef"></div>
 				</div>
+			</el-card> -->
+
+			<el-card class="flex-1 !border-none mt-4" shadow="never">
+				<Example />
 			</el-card>
 		</div>
 	</div>
@@ -129,6 +133,7 @@
 
 <script setup lang="ts" name="cache">
 import { systemCache } from '/@/api/admin/system';
+import Example from './example.vue';
 import { markRaw } from 'vue';
 import * as echarts from 'echarts';
 
